@@ -350,7 +350,8 @@ def main(cli_args=None):
         config = load_config()
 
     if 'NTFY_BACKENDS' in environ:
-        config['backends'] = environ['NTFY_BACKENDS'].split(',')
+        for cmd in ['send', 'done', 'shell-integration']:
+            config[cmd] = environ['NTFY_BACKENDS'].split(',')
 
     if args.backend:
         config['backends'] = args.backend

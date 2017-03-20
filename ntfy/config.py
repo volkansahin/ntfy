@@ -36,7 +36,7 @@ def load_config(config_path=DEFAULT_CONFIG):
         logger.error('Failed to load {}'.format(config_path), exc_info=True)
         exit(1)
 
-    if 'backend' in config:
+    if 'backend' in config and config.get('version', 2) < 3:
         logger.warning(
             "The 'backend' config option is deprecated, use 'backends'")
         if 'backends' in config:
@@ -44,5 +44,14 @@ def load_config(config_path=DEFAULT_CONFIG):
                            "ignoring 'backend'.")
         else:
             config['backends'] = [config['backend']]
+        del config['backend']
+
+    if config.get('version', 2) < 3:
+        if 'backends' in config:
+            backends = config.pop('backends')
+        config = {'backends': config}
+        config['done'] = backends
+        config['send'] = backends
+        config['shell-integration'] = backends
 
     return config
