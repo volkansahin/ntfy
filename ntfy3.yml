@@ -1,0 +1,29 @@
+---
+version: 3
+send:
+    default: default
+done:
+    default: xperia
+shell-integration:
+    unfocused: default
+    focused: null
+    locked: xperia
+backends:
+    pushover: &pushover
+        backend: pushover
+        user_key: uiRM6s9BEXY5BPE78J3CBK3mb6rMe1
+        api_token: aUnsraBiEZVsmrG89AZp47K3S2dX2a
+    pushbullet:
+        access_token: 1bbc4d5aa45dfcdeffd25f04001d0dc6
+    endgame:
+        <<: *pushover
+        device: endgame
+    xperia:
+        <<: *pushover
+        device: xperiaz5c
+    argon:
+        <<: *pushover
+        device: argon
+    chlorine-vm:
+        <<: *pushover
+        device: chlorine-vm
